@@ -2,7 +2,10 @@
 
 {% block content %}
 
-    <h1>Build A Blog!</h1>
+    <h1>All blogs written by: {{y.username}}</h1>
+
+    <h3>{{y.blog_name}}</h3>
+    <p>{{y.entry}}</p>
 
     {% if blogs|length == 0 %}
     <p>No blog yet</p>
@@ -10,11 +13,10 @@
         {% for x in blogs %}
             <h3><a href='/each?blog-id={{x.id}}'>{{x.blog_name}}</a></h3>
             <p>{{x.entry}}</p>
-            <p>written by <a href='/singleUser?user-id={{x.id}}'>{{x.username}}</a></p>
+            <p>written by <a href='/singleUser?user-id={{x.id}}'>{{y.username}}</a></p>
             <hr />
         {% endfor %}
 
     {% endif %}
-
 
 {% endblock %}

@@ -9,9 +9,13 @@
         </style>        
     </head>
 <body>
-
-    <a href='/blog'>Main Blog Page</a> -  
-    <a href='/newpost'>Add a Blog Entry</a>
+    <nav>
+        <a href='/'>Home</a> -  
+        <a href='/blog'>All post</a> -  
+        <a href='/newpost'>New post</a>
+        <p align='right'><a href='/login'>login</a> - 
+        <a href='/logout'>logout</a></p>
+    </nav>
 
     {% block content %}
     {% endblock %}
