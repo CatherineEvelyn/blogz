@@ -31,7 +31,7 @@ class User(db.Model):
 
 @app.before_request
 def require_login():
-    allowed_routes=['display_login', 'display_signup', 'index']
+    allowed_routes=['display_login', 'display_signup', 'display_blog', 'index']
     if request.endpoint not in allowed_routes and 'username' not in session:
         return redirect('/login')
 
@@ -64,31 +64,28 @@ def display_new_post():
 @app.route('/blog', methods=['GET', 'POST'])
 def display_blog():
     blogs = Blog.query.all()
-    userlists = User.query.all()
-    return render_template('blog.html',title="Build A Blog", blogs=blogs, userlists=userlists)
+    y = User.query.all()
+#Missing code to show written by (author) under each blog post
+    return render_template('blog.html',title="Build A Blog", blogs=blogs, y=y)
 
 @app.route('/each', methods=['GET'])
 def display_each():
     blogs = Blog.query.all()
-    
-    if 'blog-id' in request.args:
-        blog_id = request.args.get('blog-id')
-        y = Blog.query.get(blog_id)
-        return render_template('each.html', y=y)
-        
-    return render_template('each.html',title="Build A Blog", blogs=blogs)
+    blog_id = request.args.get('blog-id')
+#---
+    entry = Blog.query.filter_by(id=blog_id).first()
+    written_by = entry.owner_id
+    y = User.query.filter_by(id=written_by).first()
+#---        
+    return render_template('each.html',title="Build A Blog", blogs=blogs, entry=entry, y=y)
 
 @app.route('/singleUser', methods=['GET'])
 def blogs_from_singleUser():
-    userlists = User.query.all()
     blogs = Blog.query.all()
-    
-    if 'user-id' in request.args:
-        user_id = request.args.get('user-id')
-        y = User.query.get(user_id)
-        return render_template('singleUser.html', y=y, blogs=blogs)
-        
-    return render_template('blog.html',title="Build A Blog")
+    user_id = request.args.get('user-id')
+    entry = Blog.query.filter_by(owner_id=user_id).all()
+    y = User.query.filter_by(id=user_id).first()
+    return render_template('singleUser.html',title="Build A Blog", entry=entry, y=y, blogs=blogs)
 
 @app.route('/signup', methods=['POST', 'GET'])
 def display_signup():
