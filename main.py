@@ -54,8 +54,7 @@ def display_new_post():
             new_blog = Blog(blog_name, blog_entry, owner)
             db.session.add(new_blog)
             db.session.commit()
-#            return render_template('/each.html?blog-id={{???.id}}')
-            return redirect('/blog')
+            return redirect('/each?blog-id=' + str(new_blog.id))
         else:
             flash("Please fill in the form", 'error')
         
@@ -65,7 +64,6 @@ def display_new_post():
 def display_blog():
     blogs = Blog.query.all()
     y = User.query.all()
-#Missing code to show written by (author) under each blog post
     return render_template('blog.html',title="Build A Blog", blogs=blogs, y=y)
 
 @app.route('/each', methods=['GET'])
