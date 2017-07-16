@@ -10,18 +10,10 @@
         {% for x in blogs %}
             <h3><a href='/each?blog-id={{x.id}}'>{{x.blog_name}}</a></h3>
             <p>{{x.entry}}</p>
-            <p>written by <a href='/singleUser?user-id={{x.owner_id}}'>{{x.owner_id}}</a></p>
+            <p>written by <a href='/singleUser?user-id={{x.owner_id}}'>{{x.owner.username}}</a></p>
             <hr />
         {% endfor %}
 
     {% endif %}
-
-
-    {% for item in y %}
-        <p>TEST</p>
-        <p>written by <a href='/singleUser?user-id={{item.id}}'>{{item.username}}</a></p>
-        <hr />
-    {% endfor %}
-
 
 {% endblock %}
