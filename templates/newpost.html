@@ -7,29 +7,25 @@
         <p>
         <label>
             Title for your new blog:
-            <input type="text" name='blog_title' />
+            <input type="text" name='blog_title' value="{{blogtitle}}" />
         </label>
         </p>
 
-        {% with messages = get_flashed_messages(with_categories=True) %}
-            {% for category,message in messages %}
-                <p class="{{category}}">{{message}}</p>
-            {% endfor %}
-        {% endwith %}        
+        <p style=color:red>
+        {{blank_title_error}}
+        </p>
 
         <p>
         <label>
             Your new blog:
-            <textarea name="blog_entry"></textarea>
+            <textarea name="blog_entry" value="{{blogbody}}"></textarea>
         </label>
         </p>
 
-        {% with messages = get_flashed_messages(with_categories=True) %}
-            {% for category,message in messages %}
-                <p class="{{category}}">{{message}}</p>
-            {% endfor %}
-        {% endwith %}     
-
+        <p style=color:red>
+        {{blank_body_error}}
+        </p>
+        
         <input type="submit" value='Add Entry' />
     </form>
 
